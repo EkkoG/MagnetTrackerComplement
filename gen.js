@@ -14,19 +14,38 @@ axios.get('https://ngosang.github.io/trackerslist/trackers_best.txt')
         // console.log(lines[i]);
         if (i != lines.length - 1) {
             const line = lines[i]
-            console.log(line)
             trackers.push(line)
         }
     }
 
+    fs.readFile('dist/main.js', function(err, data) {
+      var text = data.toString()
+      const regex = /^\/\/.*@version.*/gm
+      const oldVersionText = text.match(regex)[0]
 
-    fs.readFile('main.js', function(err, data) {
-        const content = data.toString().replace('${trackers}', JSON.stringify(trackers))
+      const r2 = /(?<=\.).*/
+      const oldVersion = oldVersionText.match(r2)[0]
+      const newVersion = parseInt(oldVersion) + 1
+      
+      console.log('ahhh')
+      const newVersionText = oldVersionText.replace(oldVersion, newVersion.toString())
+      fs.readFile('main.js.tpl', function(err, data) {
+        var text = data.toString()
+        const regex = /^\/\/.*@version.*/gm
+        const oldVersionText = text.match(regex)[0]
+
+        text = text.replace(oldVersionText, newVersionText)
+
+        const content = text.replace('${trackers}', JSON.stringify(trackers))
         fs.writeFile('dist/main.js', content, function (err) {
             if (err) throw err;
             console.log('Replaced!');
         });
-    });
+      });
+
+
+    })
+
   })
   .catch(function (error) {
     // handle error
