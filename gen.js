@@ -27,9 +27,8 @@ axios.get('https://ngosang.github.io/trackerslist/trackers_best.txt')
       const oldVersion = oldVersionText.match(r2)[0]
       const newVersion = parseInt(oldVersion) + 1
       
-      console.log('ahhh')
       const newVersionText = oldVersionText.replace(oldVersion, newVersion.toString())
-      fs.readFile('main.js.tpl', function(err, data) {
+      fs.readFile('main.tpl.js', function(err, data) {
         var text = data.toString()
         const regex = /^\/\/.*@version.*/gm
         const oldVersionText = text.match(regex)[0]
