@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         RarbgMegnetTrackerComplement
 // @namespace    https://github.com/cielpy/RarbgMegnetTrackerComplement
-// @version      0.6
+// @version      0.7
 // @description  给 rarbg 的磁链添加 tracker，tracker 来源 https://ngosang.github.io/trackerslist/trackers_all.txt
 // @author       cielpy
 // @match        https://rarbgprx.org/torrent/*
