@@ -4,6 +4,7 @@
 // @version      0.4
 // @description  给 rarbg 的磁链添加 tracker，tracker 来源 https://ngosang.github.io/trackerslist/trackers_best.txt
 // @author       cielpy
+// @homepage     https://github.com/cielpy/RarbgMegnetTrackerComplement
 // @match        https://rarbgprx.org/torrent/*
 // @grant        none
 // ==/UserScript==
