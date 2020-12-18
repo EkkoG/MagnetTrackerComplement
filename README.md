@@ -3,3 +3,8 @@
 trackers 来源 https://github.com/ngosang/trackerslist
 
 每天 UTC 时间 00:00 更新
+
+
+## 安装地址
+
+https://greasyfork.org/zh-CN/scripts/408338-rarbgmegnettrackercomplement
