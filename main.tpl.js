@@ -1,13 +1,11 @@
 // ==UserScript==
 // @name         MegnetTrackerComplement
 // @namespace    https://github.com/cielpy/RarbgMegnetTrackerComplement
-// @version      0.9
+// @version      0.14
 // @description  给网页上的磁链添加 tracker，tracker 来源 https://ngosang.github.io/trackerslist/trackers_best.txt
 // @author       cielpy
-// @homepage     https://github.com/cielpy/RarbgMegnetTrackerComplement
-// @match        https://rarbgprx.org/*
-// @match        https://www.btdig.com/*
-// @match        https://subdh.com/*
+// @include      http://*
+// @include      https://*
 // @grant        none
 // ==/UserScript==
 
@@ -16,12 +14,21 @@
     function appendTrackers(url) {
         let trackerList = ${trackers}
         var trackerListUrlPrams = "&tr=" + trackerList.join("&tr=");
+
+        const r = /(?<=dn\=)(.*?)(?=&)/
+        const dn = url.match(r)[0]
+
+        if (dn.includes(' ')) {
+            const newDn = dn.replace(/\ /g, '%20')
+            url = url.replace(dn, newDn)
+        }
+
         return url + trackerListUrlPrams;
     }
     const aTags = document.querySelectorAll("a")
 
     for (var i = 0; i <= aTags.length; i++) {
-        if (aTags[i] !== undefined && aTags[i].href !== undefined && aTags[i].href.includes('magnet:')) {
+        if (aTags[i] !== undefined && aTags[i].href !== undefined && aTags[i].href.startsWith('magnet:')) {
             aTags[i].href = appendTrackers(aTags[i].href)
         }
     }
@@ -31,7 +38,7 @@
             if (mutation.type === 'childList') {
                 mutation.addedNodes.forEach( (node) => {
                     if (node.localName === 'a' && node.href !== undefined && node.href !== null && node.href !== '') {
-                        if (node.href.includes('magnet:')) {
+                        if (node.href.startsWith('magnet:')) {
                             node.href = appendTrackers(node.href)
                         }
                     }

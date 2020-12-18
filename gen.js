@@ -14,7 +14,7 @@ axios.get('https://ngosang.github.io/trackerslist/trackers_best.txt')
         // console.log(lines[i]);
         if (i != lines.length - 1) {
             const line = lines[i]
-            trackers.push(line)
+            trackers.push(encodeURIComponent(line))
         }
     }
 
