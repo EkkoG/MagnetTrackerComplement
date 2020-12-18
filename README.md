@@ -8,8 +8,9 @@ trackers 来源 https://github.com/ngosang/trackerslist
 - https://www.btdig.com/
 - https://subdh.com/
 
-每天 UTC 时间 00:00 更新
+每天 00:00:00+08:00 同步更新
 
+若用于下载电影，配合 https://greasyfork.org/zh-CN/scripts/401525 食用更佳
 
 ## 安装地址
 
