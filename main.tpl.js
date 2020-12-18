@@ -1,11 +1,13 @@
 // ==UserScript==
-// @name         RarbgMegnetTrackerComplement
+// @name         MegnetTrackerComplement
 // @namespace    https://github.com/cielpy/RarbgMegnetTrackerComplement
 // @version      0.9
-// @description  给 rarbg 的磁链添加 tracker，tracker 来源 https://ngosang.github.io/trackerslist/trackers_best.txt
+// @description  给网页上的磁链添加 tracker，tracker 来源 https://ngosang.github.io/trackerslist/trackers_best.txt
 // @author       cielpy
 // @homepage     https://github.com/cielpy/RarbgMegnetTrackerComplement
 // @match        https://rarbgprx.org/*
+// @match        https://www.btdig.com/*
+// @match        https://subdh.com/*
 // @grant        none
 // ==/UserScript==
 
@@ -16,27 +18,28 @@
         var trackerListUrlPrams = "&tr=" + trackerList.join("&tr=");
         return url + trackerListUrlPrams;
     }
-    var megnetUrls = document.querySelectorAll("body > table:nth-child(6) > tbody > tr > td:nth-child(2) > div > table > tbody > tr:nth-child(2) > td > div > table > tbody > tr:nth-child(1) > td.lista > a:nth-child(3)")
+    const aTags = document.querySelectorAll("a")
 
-    for (var i = 0; i <= megnetUrls.length; i++) {
-        if (i == megnetUrls.length - 1) {
-            megnetUrls[i].href = appendTrackers(megnetUrls[i].href)
-            break;
+    for (var i = 0; i <= aTags.length; i++) {
+        if (aTags[i] !== undefined && aTags[i].href !== undefined && aTags[i].href.includes('magnet:')) {
+            aTags[i].href = appendTrackers(aTags[i].href)
         }
     }
-    const targetNode = document.querySelector(".lista2t");
+
     var observer = new MutationObserver(function(mutations) {
-        mutations[0].addedNodes.forEach( (node) => {
-            if (node.localName === 'a') {
-                if (node.href.includes('magnet:')) {
-                    node.href = appendTrackers(node.href)
-                }
+        for(const mutation of mutations) {
+            if (mutation.type === 'childList') {
+                mutation.addedNodes.forEach( (node) => {
+                    if (node.localName === 'a' && node.href !== undefined && node.href !== null && node.href !== '') {
+                        if (node.href.includes('magnet:')) {
+                            node.href = appendTrackers(node.href)
+                        }
+                    }
+                })
             }
-        })
+        }
 
     });
 
-    if (targetNode !== null) {
-        observer.observe(targetNode, {attributes: false, childList: true, characterData: false, subtree:true});
-    }
+    observer.observe(document, {attributes: false, childList: true, characterData: false, subtree:true});
 })();
