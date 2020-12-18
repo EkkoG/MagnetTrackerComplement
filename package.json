@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build": "node gen.js"
+  },
   "dependencies": {
     "axios": "^0.21.0"
   }
