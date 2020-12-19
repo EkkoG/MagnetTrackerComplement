@@ -7,6 +7,7 @@
 // @include      http://*
 // @include      https://*
 // @grant        none
+// @license      MIT
 // ==/UserScript==
 
 
