@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MegnetTrackerComplement
 // @namespace    https://github.com/cielpy/RarbgMegnetTrackerComplement
-// @version      0.17
+// @version      0.18
 // @description  给网页上的磁链添加 tracker，tracker 来源 https://ngosang.github.io/trackerslist/trackers_best.txt
 // @author       cielpy
 // @include      http://*
