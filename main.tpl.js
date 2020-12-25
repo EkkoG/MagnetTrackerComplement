@@ -17,14 +17,14 @@
         let trackerList = ${trackers}
         var trackerListUrlPrams = "&tr=" + trackerList.join("&tr=");
 
-        const r = /(?<=dn\=)(.*?)(?=&)/
-        const dn = url.match(r)[0]
-
-        if (dn.includes(' ')) {
-            const newDn = dn.replace(/\ /g, '%20')
-            url = url.replace(dn, newDn)
+        if (url.includes('dn=')) {
+            const r = /(?<=dn\=)(.*?)(?=&)/
+            const dn = url.match(r)[0]
+            if (dn.includes(' ')) {
+                const newDn = dn.replace(/\ /g, '%20')
+                url = url.replace(dn, newDn)
+            }
         }
-
         return url + trackerListUrlPrams;
     }
     const aTags = document.querySelectorAll("a")
