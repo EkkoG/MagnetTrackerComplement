@@ -2,7 +2,7 @@
 // @name         MagnetTrackerComplement
 // @namespace    https://github.com/cielpy/MagnetTrackerComplement
 // @version      0.14
-// @description  给网页上的磁链添加 tracker，tracker 来源 https://ngosang.github.io/trackerslist/trackers_best.txt
+// @description  给网页上的磁链追加优质 tracker
 // @author       cielpy
 // @include      http://*
 // @include      https://*

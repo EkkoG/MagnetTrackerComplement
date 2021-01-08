@@ -1,17 +1,12 @@
 const axios = require('axios');
 const fs = require('fs');
 
-axios.get('https://ngosang.github.io/trackerslist/trackers_best.txt')
+axios.get('https://github.com/XIU2/TrackersListCollection/raw/master/best.txt')
   .then(function (response) {
-    // handle success
-    // const d = response.data.replace("/\n\n/g", '\n')
-    // console.log(d);
-
     const data = response.data.replace(/^\s*[\r\n]/gm, "")
     const lines = data.split('\n');
     const trackers = []
     for (let i = 0; i < lines.length; i++) {
-        // console.log(lines[i]);
         if (i != lines.length - 1) {
             const line = lines[i]
             trackers.push(encodeURIComponent(line))
