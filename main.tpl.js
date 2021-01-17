@@ -11,44 +11,49 @@
 // @supportURL   https://github.com/cielpy/MagnetTrackerComplement/issues
 // ==/UserScript==
 
-
+// eslint-disable-next-line
 (function () {
-    function appendTrackers(url) {
-        let trackerList = ${trackers}
-        var trackerListUrlPrams = "&tr=" + trackerList.join("&tr=");
+  // eslint-disable-next-line
+  const trackerList = []// ${trackers}
+  const trackerListUrlPrams = `&tr=${trackerList.join('&tr=')}`
 
-        if (url.includes('dn=')) {
-            const r = /(?<=dn\=)(.*?)(?=&)/
-            const dn = url.match(r)[0]
-            if (dn.includes(' ')) {
-                const newDn = dn.replace(/\ /g, '%20')
-                url = url.replace(dn, newDn)
-            }
-        }
-        return url + trackerListUrlPrams;
+  function appendTrackers(url) {
+    let newUrl = url
+    if (url.includes('dn=')) {
+      const r = /(?<=dn=)(.*?)(?=&)/
+      const dn = url.match(r)[0]
+      if (dn.includes(' ')) {
+        const newDn = dn.replace(/ /g, '%20')
+        newUrl = url.replace(dn, newDn)
+      }
     }
-    const aTags = document.querySelectorAll("a")
+    return newUrl + trackerListUrlPrams
+  }
+  const aTags = document.querySelectorAll('a')
 
-    for (var i = 0; i <= aTags.length; i++) {
-        if (aTags[i] !== undefined && aTags[i].href !== undefined && aTags[i].href.startsWith('magnet:')) {
-            aTags[i].href = appendTrackers(aTags[i].href)
-        }
+  for (let i = 0; i <= aTags.length; i += 1) {
+    if (aTags[i] !== undefined && aTags[i].href !== undefined && aTags[i].href.startsWith('magnet:')) {
+      aTags[i].href = appendTrackers(aTags[i].href)
     }
+  }
 
-    var observer = new MutationObserver(function(mutations) {
-        for(const mutation of mutations) {
-            if (mutation.type === 'childList') {
-                mutation.addedNodes.forEach( (node) => {
-                    if (node.localName === 'a' && node.href !== undefined && node.href !== null && node.href !== '') {
-                        if (node.href.startsWith('magnet:')) {
-                            node.href = appendTrackers(node.href)
-                        }
-                    }
-                })
+  const observer = new MutationObserver(((mutations) => {
+    // eslint-disable-next-line
+    for (const mutation of mutations) {
+      if (mutation.type === 'childList') {
+        mutation.addedNodes.forEach((node) => {
+          if (node.localName === 'a' && node.href !== undefined && node.href !== null && node.href !== '') {
+            if (node.href.startsWith('magnet:')) {
+              // eslint-disable-next-line
+              node.href = appendTrackers(node.href)
             }
-        }
+          }
+        })
+      }
+    }
+  }))
 
-    });
-
-    observer.observe(document, {attributes: false, childList: true, characterData: false, subtree:true});
-})();
+  observer.observe(document, {
+    attributes: false, childList: true, characterData: false, subtree: true,
+  })
+}())
