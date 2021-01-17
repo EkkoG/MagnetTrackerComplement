@@ -31,7 +31,7 @@ axios.get('https://github.com/XIU2/TrackersListCollection/raw/master/best.txt')
         tplText = tplText.replace(tplOldVersionText, newVersionText)
 
         // eslint-disable-next-line
-        const content = tplText.replace('${trackers}', JSON.stringify(trackers))
+        const content = tplText.replace("['placeholder']", JSON.stringify(trackers))
         fs.writeFile('dist/main.js', content, (mainJsWriteErr) => {
           if (mainJsWriteErr) throw mainJsWriteErr
           console.log('Replaced!')

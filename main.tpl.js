@@ -14,7 +14,7 @@
 // eslint-disable-next-line
 (function () {
   // eslint-disable-next-line
-  const trackerList = ${trackers}
+  const trackerList = ['placeholder']
   const trackerListUrlPrams = `&tr=${trackerList.join('&tr=')}`
 
   function appendTrackers(url) {
