@@ -18,13 +18,8 @@
 
   function appendTrackers(url) {
     let newUrl = url
-    if (url.includes('dn=')) {
-      const r = /(?<=dn=)(.*?)(?=&)/
-      const dn = url.match(r)[0]
-      if (dn.includes(' ')) {
-        const newDn = dn.replace(/ /g, '%20')
-        newUrl = url.replace(dn, newDn)
-      }
+    if (url.includes(' ')) {
+      newUrl = url.replace(/ /g, '%20')
     }
     return newUrl + trackerListUrlPrams
   }
@@ -36,18 +31,26 @@
     }
   }
 
+
+
   const observer = new MutationObserver(((mutations) => {
     // eslint-disable-next-line
     for (const mutation of mutations) {
       if (mutation.type === 'childList') {
-        mutation.addedNodes.forEach((node) => {
-          if (node.localName === 'a' && node.href !== undefined && node.href !== null && node.href !== '') {
-            if (node.href.startsWith('magnet:')) {
-              // eslint-disable-next-line
-              node.href = appendTrackers(node.href)
+        function findAndChangeA(nodeList) {
+          nodeList.forEach((node) => {
+            if (node.localName === 'a' && node.href !== undefined && node.href !== null && node.href !== '') {
+              if (node.href.startsWith('magnet:')) {
+                // eslint-disable-next-line
+                node.href = appendTrackers(node.href)
+              }
             }
-          }
-        })
+            if (node.childNodes !== undefined && node.childNodes !== null && node.childNodes.length !== 0) {
+              findAndChangeA(node.childNodes)
+            }
+          })
+        }
+        findAndChangeA(mutation.addedNodes)
       }
     }
   }))
