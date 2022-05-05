@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MagnetTrackerComplement
 // @namespace    https://github.com/cielpy/MagnetTrackerComplement
-// @version      0.529
+// @version      0.530
 // @description  给网页上的磁链追加优质 tracker
 // @author       cielpy
 // @include      http://*
